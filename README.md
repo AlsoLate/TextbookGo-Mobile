@@ -14,18 +14,15 @@
 
 `TextbookGo` 是一个面向普通用户的教材下载工具。运行后会自动打开浏览器完成登录，再按年级、学科、教材名逐步选择需要的教材，最后并发下载为 PDF。
 
-## 技术原理
+## 界面预览
 
-```
-用户 → 网页 UI → JSON API / SSE → API 客户端 → 智慧教育平台 API → CDN 下载 PDF
-                                 ↓
-                            chromedp 自动登录获取 Token
-```
-
-1. **登录** — 调用 chromedp 启动本地 Chrome，用户登录后通过 CDP 协议从 `localStorage` 自动提取 `access_token`，无需手动复制粘贴
-2. **选书** — 调用平台开放 API 获取教材目录，按年级→学科→教材名三级筛选，支持多选
-3. **下载** — 通过 X-ND-AUTH 鉴权头访问私有 CDN，并发下载（默认 3 路），失败自动切备用 CDN 域名重试
-4. **书签** — 可选依赖 `pdfcpu`，自动从平台拉取目录树生成 PDF 书签
+<div align="center">
+  <img src="./docs/ui-1.png" alt="TextbookGo 界面" width="860" />
+  <br/><br/>
+  <img src="./docs/ui-2.png" alt="TextbookGo 界面" width="860" />
+  <br/><br/>
+  <img src="./docs/ui-3.png" alt="TextbookGo 界面" width="860" />
+</div>
 
 ## 特点
 
