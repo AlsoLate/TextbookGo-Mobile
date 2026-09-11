@@ -8,7 +8,7 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/chenyb-go/go-down-textbook/internal/api"
+	"github.com/Wing900/TextbookGo/internal/api"
 )
 
 // AddBookmarks 使用 pdfcpu 为 PDF 添加书签

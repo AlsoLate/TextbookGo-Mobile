@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/chenyb-go/go-down-textbook/internal/models"
+	"github.com/Wing900/TextbookGo/internal/models"
 )
 
 // FetchResourceDetails 获取资源详情

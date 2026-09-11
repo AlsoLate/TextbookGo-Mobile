@@ -1,0 +1,22 @@
+# TextbookGo · 下书 — 项目自动化规范源（mise tasks）
+# 本地无 mise 时：直接用下方 run 对应的原始命令（文档化降级）。
+#
+# 封面说明：真实封面用 pdfium 渲染 PDF 第 1 页。pdfium.dll 已通过 go:embed
+#   内嵌进可执行文件（internal/cover/），纯 Go 构建，运行无需任何外部文件/dll。
+#   分发单个 .exe 即可。
+
+[tasks.test]
+description = "运行全部 Go 测试"
+run = "go test ./..."
+
+[tasks.build]
+description = "编译全部包"
+run = "go build ./..."
+
+[tasks.vet]
+description = "静态检查"
+run = "go vet ./..."
+
+[tasks.serve]
+description = "启动网页版（前端 + JSON API + SSE）"
+run = "go run ./cmd/boooookdown-web"

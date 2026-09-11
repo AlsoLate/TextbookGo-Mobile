@@ -11,15 +11,15 @@ if (-not (Test-Path $goExe)) {
 }
 
 $distRoot = Join-Path $repoRoot "dist"
-$stageRoot = Join-Path $distRoot "BoooookDown-windows-amd64"
+$stageRoot = Join-Path $distRoot "TextbookGo-windows-amd64"
 $buildRoot = Join-Path $distRoot "build-tmp"
 $binRoot = Join-Path $repoRoot "bin"
 $iconPath = Join-Path $repoRoot "assets\app.ico"
-$resourcePath = Join-Path $repoRoot "cmd\boooookdown\rsrc_windows_amd64.syso"
-$rawExePath = Join-Path $buildRoot "BoooookDown.exe"
-$exePath = Join-Path $stageRoot "BoooookDown.exe"
-$binExePath = Join-Path $binRoot "BoooookDown-windows-amd64.exe"
-$zipPath = Join-Path $distRoot "BoooookDown-windows-amd64.zip"
+$resourcePath = Join-Path $repoRoot "cmd\boooookdown-web\rsrc_windows_amd64.syso"
+$rawExePath = Join-Path $buildRoot "TextbookGo.exe"
+$exePath = Join-Path $stageRoot "TextbookGo.exe"
+$binExePath = Join-Path $binRoot "TextbookGo-windows-amd64.exe"
+$zipPath = Join-Path $distRoot "TextbookGo-windows-amd64.zip"
 $repoUpx = Join-Path $repoRoot "tools\upx\upx.exe"
 $upxExe = $null
 
@@ -39,10 +39,10 @@ New-Item -ItemType Directory -Force -Path $buildRoot | Out-Null
 Remove-Item -Recurse -Force $stageRoot -ErrorAction SilentlyContinue
 New-Item -ItemType Directory -Force -Path $stageRoot | Out-Null
 
-python (Join-Path $repoRoot "scripts\make_windows_icon.py") (Join-Path $repoRoot "logo.jpg") $iconPath
+python (Join-Path $repoRoot "scripts\make_logo.py")
 
 & $goExe run github.com/akavel/rsrc@latest -ico $iconPath -o $resourcePath
-& $goExe build -trimpath -buildvcs=false -ldflags "-s -w -X main.version=$Version" -o $rawExePath .\cmd\boooookdown
+& $goExe build -trimpath -buildvcs=false -ldflags "-s -w -X main.version=$Version" -o $rawExePath .\cmd\boooookdown-web
 Remove-Item -Force $resourcePath -ErrorAction SilentlyContinue
 
 if ($upxExe) {

@@ -79,17 +79,25 @@ func (c *Client) GetJSON(url string) ([]byte, error) {
 		}
 
 		if resp.StatusCode >= 500 {
-			lastErr = fmt.Errorf("服务器错误 %d: %s", resp.StatusCode, string(body[:min(len(body), 200)]))
+			lastErr = fmt.Errorf("服务器错误 %d: %s", resp.StatusCode, string(body[:capMsg(body)]))
 			continue
 		}
 
 		if resp.StatusCode != 200 {
-			return nil, fmt.Errorf("HTTP %d: %s", resp.StatusCode, string(body[:min(len(body), 200)]))
+			return nil, fmt.Errorf("HTTP %d: %s", resp.StatusCode, string(body[:capMsg(body)]))
 		}
 
 		return body, nil
 	}
 	return nil, lastErr
+}
+
+// capMsg 错误消息截断长度（≤200），兼容 go1.20：无内置 min。
+func capMsg(b []byte) int {
+	if len(b) < 200 {
+		return len(b)
+	}
+	return 200
 }
 
 // DownloadStream 执行 GET 请求并返回响应体流（用于大文件下载）

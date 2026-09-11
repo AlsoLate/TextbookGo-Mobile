@@ -137,3 +137,54 @@ func RemoveBook(dir string, bookID string) error {
 	history.Books = newBooks
 	return SaveHistory(dir, history)
 }
+
+// RemoveBookWithFile 移除历史记录，并删除磁盘上的 PDF 文件。
+// 文件已不存在时静默忽略，仅清记录。
+func RemoveBookWithFile(dir string, bookID string) error {
+	history, err := LoadHistory(dir)
+	if err != nil {
+		return err
+	}
+	var filename string
+	var newBooks []HistoryBook
+	for _, b := range history.Books {
+		if b.ID == bookID {
+			filename = b.Filename
+			continue
+		}
+		newBooks = append(newBooks, b)
+	}
+	history.Books = newBooks
+	if filename != "" {
+		if err := os.Remove(filepath.Join(dir, filename)); err != nil && !os.IsNotExist(err) {
+			return fmt.Errorf("删除文件失败: %w", err)
+		}
+	}
+	return SaveHistory(dir, history)
+}
+
+// Reconcile 校验 history 中每本书的 PDF 文件是否仍存在，移除丢失记录并回写。
+// 返回被移除的 bookID 列表。用于和文件系统双向同步（用户手动删 PDF 后书架自动清理）。
+func Reconcile(dir string) ([]string, error) {
+	history, err := LoadHistory(dir)
+	if err != nil {
+		return nil, err
+	}
+	var removed []string
+	var kept []HistoryBook
+	for _, b := range history.Books {
+		if _, err := os.Stat(filepath.Join(dir, b.Filename)); err == nil {
+			kept = append(kept, b)
+		} else {
+			removed = append(removed, b.ID)
+		}
+	}
+	if len(removed) == 0 {
+		return nil, nil
+	}
+	history.Books = kept
+	if err := SaveHistory(dir, history); err != nil {
+		return removed, err
+	}
+	return removed, nil
+}

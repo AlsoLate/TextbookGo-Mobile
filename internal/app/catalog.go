@@ -4,14 +4,13 @@ import (
 	"fmt"
 	"sort"
 
-	"github.com/chenyb-go/go-down-textbook/internal/api"
-	"github.com/chenyb-go/go-down-textbook/internal/auth"
-	"github.com/chenyb-go/go-down-textbook/internal/download"
-	"github.com/chenyb-go/go-down-textbook/internal/models"
+	"github.com/Wing900/TextbookGo/internal/api"
+	"github.com/Wing900/TextbookGo/internal/download"
+	"github.com/Wing900/TextbookGo/internal/models"
 )
 
 func (s *Service) EnsureCatalog() (*CatalogData, error) {
-	session := auth.NewSessionManager(auth.LoginViaBrowserQuiet)
+	session := s.session
 	token, err := session.EnsureToken()
 	if err != nil {
 		return nil, err
@@ -23,6 +22,12 @@ func (s *Service) EnsureCatalog() (*CatalogData, error) {
 	if err != nil {
 		return nil, err
 	}
+	if sample, ok := api.FirstCatalogEntry(entries); ok {
+		if _, err := api.FetchResourceDetails(client, sample.ID); err != nil {
+			return nil, err
+		}
+	}
+	token = client.CurrentToken()
 
 	grades := api.GetGrades(entries)
 	if len(grades) == 0 {
@@ -44,6 +49,9 @@ func (s *Service) Books(entries []models.CatalogEntry, grade, subject string) []
 		books = append(books, SelectableBook{
 			BookItem:   models.BookItem{ID: entry.ID, Title: entry.Title, Grade: grade, Subject: subject},
 			Downloaded: download.HasBook(s.OutputDir, entry.ID),
+			Version:    entry.GetTagByDimension(api.DimBanBen),
+			Volume:     entry.GetTagByDimension(api.DimCeCi),
+			CoverURL:   entry.CoverURL(),
 		})
 	}
 	sort.SliceStable(books, func(i, j int) bool {
@@ -53,4 +61,15 @@ func (s *Service) Books(entries []models.CatalogEntry, grade, subject string) []
 		return books[i].Title < books[j].Title
 	})
 	return books
+}
+
+// newClient 用 Service 持有的 session 造一个鉴权 client。
+func (s *Service) newClient() (*api.Client, error) {
+	token, err := s.session.EnsureToken()
+	if err != nil {
+		return nil, err
+	}
+	c := api.NewClient(token)
+	c.SetUnauthorizedHandler(s.session.RefreshToken)
+	return c, nil
 }

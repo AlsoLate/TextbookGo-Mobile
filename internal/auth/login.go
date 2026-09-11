@@ -12,7 +12,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/chenyb-go/go-down-textbook/internal/util"
+	"github.com/Wing900/TextbookGo/internal/util"
 	"github.com/chromedp/chromedp"
 )
 
@@ -50,7 +50,7 @@ func loginViaBrowser(stdout io.Writer, stderr io.Writer) (string, error) {
 	fmt.Fprintln(stdout)
 
 	// 创建临时 Chrome profile 目录
-	tmpDir, err := os.MkdirTemp("", "BoooookDown-chrome-*")
+	tmpDir, err := os.MkdirTemp("", "TextbookGo-chrome-*")
 	if err != nil {
 		return "", fmt.Errorf("创建临时目录失败: %w", err)
 	}

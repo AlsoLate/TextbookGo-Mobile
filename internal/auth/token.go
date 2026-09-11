@@ -45,6 +45,19 @@ func GetToken() (string, error) {
 	return LoadToken()
 }
 
+// ForgetToken 删除已保存的 token 文件（“不记住登录状态”）。
+// 内存中的当前会话不受影响；下次启动服务需重新扫码登录。
+func ForgetToken() error {
+	dir, err := getConfigDir()
+	if err != nil {
+		return fmt.Errorf("获取配置目录失败: %w", err)
+	}
+	if err := os.Remove(filepath.Join(dir, TokenFile)); err != nil && !os.IsNotExist(err) {
+		return fmt.Errorf("删除 token 文件失败: %w", err)
+	}
+	return nil
+}
+
 // SaveToken 保存 token 到配置文件
 func SaveToken(token string) error {
 	dir, err := getConfigDir()

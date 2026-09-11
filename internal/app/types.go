@@ -1,12 +1,14 @@
 package app
 
 import (
-	"github.com/chenyb-go/go-down-textbook/internal/download"
-	"github.com/chenyb-go/go-down-textbook/internal/models"
+	"github.com/Wing900/TextbookGo/internal/auth"
+	"github.com/Wing900/TextbookGo/internal/download"
+	"github.com/Wing900/TextbookGo/internal/models"
 )
 
 type Service struct {
 	OutputDir string
+	session   *auth.SessionManager
 }
 
 type HomeData struct {
@@ -24,6 +26,9 @@ type CatalogData struct {
 type SelectableBook struct {
 	models.BookItem
 	Downloaded bool
+	Version    string
+	Volume     string
+	CoverURL   string
 }
 
 type DownloadUpdateType int
@@ -43,5 +48,5 @@ type DownloadUpdate struct {
 }
 
 func NewService(outputDir string) *Service {
-	return &Service{OutputDir: outputDir}
+	return &Service{OutputDir: outputDir, session: auth.NewSessionManager(auth.LoginViaBrowserQuiet)}
 }

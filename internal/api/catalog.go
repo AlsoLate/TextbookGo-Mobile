@@ -3,10 +3,11 @@ package api
 import (
 	"encoding/json"
 	"fmt"
+	"sort"
 	"strings"
 	"sync"
 
-	"github.com/chenyb-go/go-down-textbook/internal/models"
+	"github.com/Wing900/TextbookGo/internal/models"
 )
 
 // FetchCatalog 获取完整的教材目录
@@ -33,10 +34,10 @@ func FetchCatalog(client *Client) ([]models.CatalogEntry, error) {
 
 	// Step 2: 并发获取所有数据文件
 	var (
-		mu      sync.Mutex
-		wg      sync.WaitGroup
+		mu        sync.Mutex
+		wg        sync.WaitGroup
 		allEntrys []models.CatalogEntry
-		errs    []string
+		errs      []string
 	)
 
 	sem := make(chan struct{}, 5) // 最多 5 个并发
@@ -195,4 +196,19 @@ func GetSubjects(entries []models.CatalogEntry, grade string) []string {
 	}
 
 	return subjects
+}
+
+// FirstCatalogEntry 返回一个稳定的示例条目，用于后续鉴权预检。
+func FirstCatalogEntry(entries []models.CatalogEntry) (models.CatalogEntry, bool) {
+	if len(entries) == 0 {
+		return models.CatalogEntry{}, false
+	}
+	copied := append([]models.CatalogEntry(nil), entries...)
+	sort.SliceStable(copied, func(i, j int) bool {
+		if copied[i].Title != copied[j].Title {
+			return copied[i].Title < copied[j].Title
+		}
+		return copied[i].ID < copied[j].ID
+	})
+	return copied[0], true
 }

@@ -1,8 +1,8 @@
 package app
 
 import (
-	"github.com/chenyb-go/go-down-textbook/internal/auth"
-	"github.com/chenyb-go/go-down-textbook/internal/download"
+	"github.com/Wing900/TextbookGo/internal/auth"
+	"github.com/Wing900/TextbookGo/internal/download"
 )
 
 func (s *Service) HomeData() (HomeData, error) {

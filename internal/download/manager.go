@@ -8,8 +8,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/chenyb-go/go-down-textbook/internal/api"
-	"github.com/chenyb-go/go-down-textbook/internal/models"
+	"github.com/Wing900/TextbookGo/internal/api"
+	"github.com/Wing900/TextbookGo/internal/models"
 )
 
 // Manager 下载管理器

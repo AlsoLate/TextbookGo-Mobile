@@ -36,3 +36,6 @@ tools/
 
 # Temporary files
 *.tmp
+
+# Agent tool state
+.until-done/

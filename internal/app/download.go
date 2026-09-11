@@ -6,15 +6,14 @@ import (
 	"path/filepath"
 	"sync"
 
-	"github.com/chenyb-go/go-down-textbook/internal/api"
-	"github.com/chenyb-go/go-down-textbook/internal/auth"
-	"github.com/chenyb-go/go-down-textbook/internal/download"
-	"github.com/chenyb-go/go-down-textbook/internal/models"
-	"github.com/chenyb-go/go-down-textbook/internal/pdf"
+	"github.com/Wing900/TextbookGo/internal/api"
+	"github.com/Wing900/TextbookGo/internal/download"
+	"github.com/Wing900/TextbookGo/internal/models"
+	"github.com/Wing900/TextbookGo/internal/pdf"
 )
 
 func (s *Service) StartDownload(ctx context.Context, token string, books []models.BookItem) <-chan DownloadUpdate {
-	session := auth.NewSessionManager(auth.LoginViaBrowserQuiet)
+	session := s.session
 	if token == "" {
 		var err error
 		token, err = session.EnsureToken()

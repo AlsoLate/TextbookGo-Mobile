@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/chenyb-go/go-down-textbook/internal/api"
+	"github.com/Wing900/TextbookGo/internal/api"
 )
 
 // DownloadFile 下载文件到指定路径

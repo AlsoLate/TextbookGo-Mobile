@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/chenyb-go/go-down-textbook/internal/models"
+	"github.com/Wing900/TextbookGo/internal/models"
 )
 
 // FetchTagHierarchy 获取标签分类树

@@ -49,10 +49,17 @@ func splitAndTrim(s, sep string) []string {
 
 // ResourceItem 资源详情
 type ResourceItem struct {
-	ID       string   `json:"id"`
-	Title    string   `json:"title"`
-	TiItems  []TiItem `json:"ti_items"`
-	TagsList []string `json:"tags_list"`
+	ID               string             `json:"id"`
+	Title            string             `json:"title"`
+	TiItems          []TiItem           `json:"ti_items"`
+	TagsList         []string           `json:"tags_list"`
+	CustomProperties CustomProperties   `json:"custom_properties"`
+}
+
+// CustomProperties 平台资源自定义属性，含封面缩略图与预览图。
+type CustomProperties struct {
+	Thumbnails []string          `json:"thumbnails"`
+	Preview    map[string]string `json:"preview"`
 }
 
 // TiItem 资源文件信息
@@ -72,9 +79,18 @@ type TiItem struct {
 
 // CatalogEntry 教材目录条目
 type CatalogEntry struct {
-	ID      string `json:"id"`
-	Title   string `json:"title"`
-	TagList []Tag  `json:"tag_list"`
+	ID               string           `json:"id"`
+	Title            string           `json:"title"`
+	TagList          []Tag            `json:"tag_list"`
+	CustomProperties CustomProperties `json:"custom_properties"`
+}
+
+// CoverURL 返回平台封面图 URL：优先 thumbnails[0]，回退 preview.Slide1。
+func (c *CatalogEntry) CoverURL() string {
+	if len(c.CustomProperties.Thumbnails) > 0 {
+		return c.CustomProperties.Thumbnails[0]
+	}
+	return c.CustomProperties.Preview["Slide1"]
 }
 
 // Tag 标签信息（来自 tag_list）

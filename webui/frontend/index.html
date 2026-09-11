@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TextbookGo · 下书</title>
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+<link rel="icon" type="image/png" sizes="256x256" href="assets/logo.png">
+<link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/covers.css">
+<link rel="stylesheet" href="css/views.css">
+</head>
+<body>
+
+<!-- ═══ 方形线条图标集 v2 · 《坠书一瞬》语法：莫兰迪色块 + 墨色方形线条，随主题变色 ═══ -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <defs>
+    <symbol id="ic-dl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="square" stroke-linejoin="miter">
+      <!-- 下载：坠书一瞬的徽章版 —— 斜书悬停，箭头与托盘之间留出「将落未落」的间隙 -->
+      <g transform="rotate(8 12 5.5)">
+        <rect x="8.5" y="1.5" width="7" height="8" fill="var(--cov-sage)" stroke-width="1.5"/>
+        <line x1="11" y1="1.5" x2="11" y2="9.5" stroke-width="1.5"/>
+      </g>
+      <line x1="12" y1="12" x2="12" y2="15.4" stroke-width="1.8"/>
+      <polyline points="9.4,13.2 12,15.8 14.6,13.2" stroke-width="1.8"/>
+      <polyline points="4,18.2 4,21 20,21 20,18.2" stroke-width="1.8"/>
+    </symbol>
+    <symbol id="ic-shelf" viewBox="0 0 24 24">
+      <!-- 书架：logo 里悬着的书已落架斜倚 —— 品牌故事的下半场 -->
+      <rect x="4" y="10.2" width="3.4" height="9.4" fill="var(--cov-linen)" stroke="currentColor" stroke-width="1.5"/>
+      <rect x="8.8" y="6.8" width="3.4" height="12.8" fill="var(--cov-sage)" stroke="currentColor" stroke-width="1.5" transform="rotate(8 10.5 19.6)"/>
+      <rect x="14.4" y="12" width="3.4" height="7.6" fill="var(--cov-oatmeal)" stroke="currentColor" stroke-width="1.5"/>
+      <rect x="18.8" y="8.6" width="3.4" height="11" fill="var(--cov-basalt)" stroke="currentColor" stroke-width="1.5"/>
+      <line x1="2.5" y1="21" x2="21.5" y2="21" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"/>
+    </symbol>
+    <symbol id="ic-settings" viewBox="0 0 24 24">
+      <!-- 设置：滑杆不变，旋钮换成莫兰迪色块 -->
+      <line x1="4" y1="9" x2="20" y2="9" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"/>
+      <rect x="12.4" y="7.4" width="3.2" height="3.2" fill="var(--cov-sage)" stroke="currentColor" stroke-width="1.4"/>
+      <line x1="4" y1="15" x2="20" y2="15" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"/>
+      <rect x="6.4" y="13.4" width="3.2" height="3.2" fill="var(--cov-terracotta)" stroke="currentColor" stroke-width="1.4"/>
+    </symbol>
+    <symbol id="ic-dir" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter">
+      <!-- 目录：文件夹里露出一页鼠尾草 -->
+      <rect x="3" y="3" width="18" height="18" rx="2"/>
+      <line x1="3" y1="9" x2="21" y2="9"/>
+      <polyline points="9,14 12,17 15,14"/>
+      <rect x="5" y="4.6" width="4.4" height="2.8" fill="var(--cov-sage)" stroke="none"/>
+    </symbol>
+    <symbol id="ic-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter">
+      <!-- 删除：篓中一叠漂白麻 -->
+      <line x1="9" y1="4" x2="15" y2="4"/>
+      <line x1="3" y1="6" x2="21" y2="6"/>
+      <polyline points="5,6 6,20 18,20 19,6"/>
+      <rect x="7" y="9" width="10" height="6.4" fill="var(--cov-linen)" stroke="none"/>
+    </symbol>
+    <symbol id="ic-day" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter">
+      <!-- 晨光：方框 + 烧陶土太阳（中心方点） -->
+      <rect x="3" y="3" width="18" height="18" rx="2"/>
+      <rect x="9.5" y="9.5" width="5" height="5" fill="var(--cov-terracotta)" stroke="none"/>
+    </symbol>
+    <symbol id="ic-night" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter">
+      <!-- 夜色：方框 + 玄武岩月亮（右上角象限） -->
+      <rect x="3" y="3" width="18" height="18" rx="2"/>
+      <rect x="12" y="3.5" width="8" height="8" fill="var(--cov-basalt)" stroke="none"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="bg-glow" aria-hidden="true"></div>
+
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <svg class="brand-icon" viewBox="0 0 256 256" aria-label="TextbookGo">
+        <defs><clipPath id="bk-b"><rect x="84" y="56" width="88" height="120"/></clipPath></defs>
+        <g transform="rotate(8 128 116)">
+          <g clip-path="url(#bk-b)">
+            <rect x="106" y="56" width="66" height="76" fill="var(--cov-sage)"/>
+            <rect x="106" y="132" width="66" height="44" fill="var(--cov-linen)"/>
+            <rect x="84" y="132" width="22" height="44" fill="var(--cov-oatmeal)"/>
+          </g>
+          <g fill="none" stroke="currentColor" stroke-width="12" stroke-linecap="square" stroke-linejoin="miter">
+            <rect x="84" y="56" width="88" height="120"/>
+            <line x1="106" y1="56" x2="106" y2="176"/>
+          </g>
+        </g>
+        <rect x="123" y="190" width="10" height="10" fill="currentColor"/>
+        <line x1="52" y1="204" x2="204" y2="204" stroke="currentColor" stroke-width="10" stroke-linecap="square"/>
+      </svg>
+      <div class="brand-text">
+        <div class="brand-name">TextbookGo</div>
+        <div class="brand-sub">下书</div>
+      </div>
+    </div>
+    <nav class="nav">
+      <button class="nav-item is-active" data-view="download"><svg class="nav-icon"><use href="#ic-dl"/></svg><span class="nav-label">下载</span></button>
+      <button class="nav-item" data-view="books"><svg class="nav-icon"><use href="#ic-shelf"/></svg><span class="nav-label">书架</span><span class="nav-count" id="bookCount">0</span></button>
+      <button class="nav-item" data-view="settings"><svg class="nav-icon"><use href="#ic-settings"/></svg><span class="nav-label">设置</span></button>
+    </nav>
+    <div class="side-foot">
+      <button class="theme-toggle" id="btnTheme" aria-label="切换外观">
+        <svg class="tt-icon"><use href="#ic-day"/></svg>
+        <span class="tt-label">外观</span>
+      </button>
+      <div class="login-chip" id="loginChip">
+        <span class="chip-dot"></span>
+        <span class="chip-txt" id="loginState">未登录</span>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <section class="view" id="view-download">
+      <header class="topbar">
+        <div class="crumb"><span class="crumb-cur">下载</span><span class="crumb-sep">/</span><span class="crumb-idx" id="stepLabel">登录</span></div>
+        <div class="stepper">
+          <span class="st st-on" data-step="1">登录</span><span class="st-bar"></span>
+          <span class="st" data-step="2">选书</span>
+        </div>
+      </header>
+
+      <div class="step-track">
+        <div class="step-card" data-stepcard="1">
+          <div class="login-wrap panel">
+            <svg class="login-logo" viewBox="0 0 256 256" aria-hidden="true">
+              <defs><clipPath id="lg-bk"><rect x="84" y="56" width="88" height="120"/></clipPath></defs>
+              <g class="lg-book" transform="rotate(8 128 116)">
+                <g clip-path="url(#lg-bk)">
+                  <rect x="106" y="56" width="66" height="76" fill="var(--cov-sage)"/>
+                  <rect x="106" y="132" width="66" height="44" fill="var(--cov-linen)"/>
+                  <rect x="84" y="132" width="22" height="44" fill="var(--cov-oatmeal)"/>
+                </g>
+                <g fill="none" stroke="currentColor" stroke-width="12" stroke-linecap="square" stroke-linejoin="miter">
+                  <rect x="84" y="56" width="88" height="120"/>
+                  <line x1="106" y1="56" x2="106" y2="176"/>
+                </g>
+              </g>
+              <rect x="123" y="190" width="10" height="10" fill="currentColor"/>
+              <line x1="52" y1="204" x2="204" y2="204" stroke="currentColor" stroke-width="10" stroke-linecap="square"/>
+            </svg>
+            <h2 class="panel-title">登录智慧教育平台</h2>
+            <p class="login-desc">点击下方按钮，将校验登录态并预检教材目录。未登录会引导你在浏览器完成授权。</p>
+            <button class="btn btn-primary" id="btnLogin">登录并预检目录</button>
+            <p class="login-status" id="loginStatus"></p>
+          </div>
+        </div>
+
+        <div class="step-card" data-stepcard="2">
+          <div class="picker">
+            <div class="filter-bar">
+              <div class="seg-group" id="gradeSeg"></div>
+              <div class="seg-group" id="subjectSeg"></div>
+              <input class="search" id="bookSearch" type="search" placeholder="搜索书名…" autocomplete="off">
+            </div>
+            <div class="grid-wrap">
+              <div class="bento-track" id="bookGrid"></div>
+            </div>
+          </div>
+          <div class="flow-actions">
+            <span class="pick-count" id="pickCount">已选 0 本</span>
+            <button class="btn btn-ghost" id="btnClear">清空选择</button>
+            <button class="btn btn-primary" id="btnConfirm">开始下载</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="view hidden" id="view-books">
+      <header class="topbar">
+        <div class="crumb"><span class="crumb-cur">书架</span><span class="crumb-sep">/</span><span class="crumb-idx">已下载教材</span></div>
+        <div class="shelf-hint">左右滑动浏览</div>
+      </header>
+      <div class="shelf" id="shelfRoot"></div>
+      <div class="dl-strip hidden" id="dlStrip"></div>
+      <div class="shelf-foot">
+        <div class="trash-zone" id="trashZone">
+          <svg class="trash-icon"><use href="#ic-trash"/></svg>
+          <span class="trash-label">拖书到这里删除</span>
+        </div>
+        <button class="btn btn-ghost btn-has-ic" id="btnOpenDir2"><svg class="btn-icon"><use href="#ic-dir"/></svg><span>打开下载目录</span></button>
+      </div>
+    </section>
+
+    <section class="view hidden" id="view-settings">
+      <header class="topbar"><div class="crumb"><span class="crumb-cur">设置</span></div></header>
+      <div class="settings panel">
+        <h2 class="panel-title">设置</h2>
+        <div class="switch-row"><span>记住登录状态</span><span class="switch on" id="swRemember" role="switch" tabindex="0" aria-label="记住登录状态"><i></i></span></div>
+        <div class="switch-row"><span>下载后自动打开目录</span><span class="switch" id="swAutoOpen" role="switch" tabindex="0" aria-label="下载后自动打开目录"><i></i></span></div>
+        <div class="dir-row"><span>下载目录</span><button class="btn btn-ghost small btn-has-ic" id="btnOpenDir3"><svg class="btn-icon"><use href="#ic-dir"/></svg><span>打开</span></button></div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="js/theme.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/api.js"></script>
+<script src="js/sound.js"></script>
+<script src="js/render.js"></script>
+<script src="js/flow.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

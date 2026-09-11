@@ -1,0 +1,97 @@
+/* ═══ 下书 covers · 寂静之境 · 莫兰迪/北欧封面拼贴 ═══
+   色源全部来自 tokens.css 的 --cov-* token，零独立 hex，随主题适配。 */
+
+.cov {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 148 / 200;
+  border-radius: 0; /* 直角：与《坠书一瞬》方线插画同族， Bauhaus 方线语法 */
+  overflow: hidden;
+  background: var(--bg-surface);
+  box-shadow: inset 0 0 0 1px var(--hairline), var(--shadow-rest);
+  transform: perspective(900px) rotateY(-5deg);
+  transition: transform var(--dur-slow) var(--ease-spring), box-shadow var(--dur-slow) var(--ease-spring);
+}
+/* 书脊 · 发丝渐隐 */
+.cov::before {
+  content: "";
+  position: absolute; left: 0; top: 0; width: 4px; height: 100%;
+  background: linear-gradient(90deg, var(--hairline-strong), transparent);
+  z-index: 4;
+}
+.cov-t {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--cov-ink);
+  font-family: var(--font-serif);
+  font-weight: 600; font-size: 13px;
+  z-index: 2; text-align: center;
+  padding: 10px; letter-spacing: 0.04em;
+  opacity: 0.78;
+}
+.cov-img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+  z-index: 3;
+}
+
+/* 色块拼贴 v2 · 《坠书一瞬》语法：两块平涂莫兰迪 + 一道压印墨线，方角不透明。
+   pc-3 统一为墨线/墨点（排版线/书脊线/落点签名），与 logo 同族；hash 保 6 版多样性。 */
+.cov .pc {
+  position: absolute;
+  border-radius: 0;
+  opacity: 1;
+}
+.cov-0 .pc-1 { left: 0; top: 0; width: 55%; height: 42%; background: var(--cov-sage); }
+.cov-0 .pc-2 { right: 0; bottom: 0; width: 48%; height: 46%; background: var(--cov-linen); }
+.cov-0 .pc-3 { left: 8%; top: 68%; width: 34%; height: 5%; background: var(--cov-ink); }
+
+.cov-1 .pc-1 { left: 0; top: 8%; width: 40%; height: 56%; background: var(--cov-terracotta); }
+.cov-1 .pc-2 { right: 0; top: 0; width: 56%; height: 36%; background: var(--cov-linen); }
+.cov-1 .pc-3 { left: 46%; top: 30%; width: 5%; height: 52%; background: var(--cov-ink); }
+
+.cov-2 .pc-1 { left: 0; top: 0; width: 62%; height: 34%; background: var(--cov-basalt); }
+.cov-2 .pc-2 { right: 0; bottom: 0; width: 44%; height: 46%; background: var(--cov-sage); }
+.cov-2 .pc-3 { left: 12%; bottom: 16%; width: 40%; height: 5%; background: var(--cov-ink); }
+
+.cov-3 .pc-1 { left: 0; top: 0; width: 44%; height: 62%; background: var(--cov-oatmeal); }
+.cov-3 .pc-2 { right: 0; bottom: 0; width: 38%; height: 42%; background: var(--cov-terracotta); }
+.cov-3 .pc-3 { right: 20%; top: 0; width: 5%; height: 30%; background: var(--cov-ink); }
+
+.cov-4 .pc-1 { left: 0; top: 0; width: 58%; height: 52%; background: var(--cov-linen); }
+.cov-4 .pc-2 { right: 0; top: 34%; width: 46%; height: 44%; background: var(--cov-sage); }
+.cov-4 .pc-3 { left: 8%; top: 6%; width: 26%; height: 5%; background: var(--cov-ink); }
+
+.cov-5 .pc-1 { left: 0; top: 0; width: 52%; height: 40%; background: var(--cov-terracotta); }
+.cov-5 .pc-2 { left: 0; bottom: 0; width: 64%; height: 30%; background: var(--cov-basalt); }
+.cov-5 .pc-3 { right: 12%; bottom: 8%; width: 11%; height: 8%; background: var(--cov-ink); } /* 落点签名 */
+
+/* ── 图书卡片 · 选书网格 ── */
+.book-card {
+  width: 100%; flex-shrink: 0;
+  display: flex; flex-direction: column; gap: 10px;
+  cursor: pointer;
+}
+.book-card.sel .cov {
+  box-shadow: inset 0 0 0 2px var(--accent), var(--shadow-hover);
+  transform: perspective(900px) rotateY(-5deg) translateY(-4px);
+}
+.book-card:hover .cov {
+  transform: perspective(900px) rotateY(-8deg) translateY(-2px);
+  box-shadow: inset 0 0 0 1px var(--hairline-strong), var(--shadow-hover);
+}
+.book-meta {
+  font-size: 11px; color: var(--ink-2);
+  display: flex; gap: 8px; align-items: center;
+}
+.book-meta .mt {
+  background: var(--fill-soft); color: var(--ink-2);
+  padding: 3px 9px; border-radius: var(--radius-pill);
+  font-size: 10px; letter-spacing: 0.04em;
+}
+.book-card.sel .mt { background: var(--accent); color: var(--accent-ink); }
+.on-shelf .cov-t { font-size: 12px; }
+
+/* ── 迷你封面 · 预留（确认清单/进度项已删） ── */

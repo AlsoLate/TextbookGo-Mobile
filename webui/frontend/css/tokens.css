@@ -1,0 +1,98 @@
+/* ═══ 下书 tokens · 寂静之境设计系统 · 单一真相源 ═══
+   双态：晨光 Day / 夜读 Night。色板克制，缓动苹果级。
+   covers.css 不含 hex —— 封面色板全部在此声明。 */
+
+:root {
+  color-scheme: light;
+
+  /* ── 晨光 Day（默认）── 未漂白纯棉纸 + 冷墨 */
+  --bg-canvas:      #F9F8F5;
+  --bg-surface:     #FFFFFF;
+  --bg-surface-soft:#F2F1EC;
+  --bg-sidebar:     #F4F3EF;
+  --ink-1:          #1C1B1A;
+  --ink-2:          #4A4845;
+  --ink-3:          #82807C;
+  --hairline:       rgba(28, 27, 26, 0.05);
+  --hairline-strong:rgba(28, 27, 26, 0.10);
+  --accent:         #5B6B5F;          /* 冷杉苔绿 · 克制点缀 */
+  --accent-ink:     #FFFFFF;
+  --fill-soft:      rgba(28, 27, 26, 0.04);
+  --fill-strong:    rgba(28, 27, 26, 0.08);
+  --fill-hover:     rgba(28, 27, 26, 0.06);
+  --scrim:          rgba(28, 27, 26, 0.28);
+
+  /* ── 封面色板 · 莫兰迪/北欧低饱和 ── */
+  --cov-linen:      #E8E4D9;   /* 漂白麻 */
+  --cov-sage:       #A7B0A0;   /* 鼠尾草灰绿 */
+  --cov-terracotta: #C09A86;   /* 烧陶土 */
+  --cov-basalt:     #6B7079;   /* 玄武岩灰 */
+  --cov-oatmeal:    #D4C9B0;   /* 淡麦金 */
+  --cov-ink:        #2A2926;   /* 封面压印墨 */
+
+  /* ── 字体 · 系统栈，零外链 ── */
+  --font-serif: "New York", "Iowan Old Style", "Palatino Linotype",
+    "Songti SC", "Source Han Serif SC", Cambria, Georgia, serif;
+  --font-sans: system-ui, -apple-system, "SF Pro Text", "Segoe UI",
+    "PingFang SC", "Microsoft YaHei", sans-serif;
+
+  /* ── 圆角 · Apple 连续曲率声明 + 渐进增强 ── */
+  --radius-pill: 999px;
+  --radius-xs:   10px;
+  --radius-sm:   14px;
+  --radius-md:   20px;
+  --radius-lg:   28px;
+  --corner-smooth: continuous;
+
+  /* ── 缓动 · 苹果级阻尼 ── */
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-breath: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast:    160ms;
+  --dur-base:    240ms;
+  --dur-slow:    420ms;
+  --breath-dur:  7.5s;
+
+  /* ── 阴影 · 静若处子，动有回响 ── */
+  --shadow-rest:  0 1px 2px rgba(28, 27, 26, 0.02);
+  --shadow-hover: 0 16px 32px -8px rgba(28, 27, 26, 0.04),
+                  0 2px 6px rgba(28, 27, 26, 0.02);
+  --shadow-panel: 0 20px 40px -15px rgba(28, 27, 26, 0.04),
+                  0 1px 3px rgba(28, 27, 26, 0.02);
+
+  /* ── 背景微光 · 呼吸画布 ── */
+  --glow-day:   rgba(212, 201, 176, 0.35);   /* 淡麦金光晕 */
+  --glow-night: rgba(120, 130, 140, 0.18);   /* 夜雾蓝光晕 */
+}
+
+/* ── 夜读 Night ── 深板岩炭灰 + 暖米灰文字，拒绝纯黑高对比 ── */
+:root[data-theme="night"] {
+  color-scheme: dark;
+  --bg-canvas:      #121211;
+  --bg-surface:     #1A1918;
+  --bg-surface-soft:#1F1E1C;
+  --bg-sidebar:     #161615;
+  --ink-1:          #E4E2DC;
+  --ink-2:          #B5B2A9;
+  --ink-3:          #7A7873;
+  --hairline:       rgba(255, 255, 255, 0.06);
+  --hairline-strong:rgba(255, 255, 255, 0.12);
+  --accent:         #8FA096;          /* 夜色苔绿 */
+  --accent-ink:     #1A1918;
+  --fill-soft:      rgba(255, 255, 255, 0.04);
+  --fill-strong:    rgba(255, 255, 255, 0.08);
+  --fill-hover:     rgba(255, 255, 255, 0.06);
+  --scrim:          rgba(0, 0, 0, 0.5);
+
+  --cov-linen:      #3A382F;
+  --cov-sage:       #4A544C;
+  --cov-terracotta: #6E4A3C;
+  --cov-basalt:     #4A4F58;
+  --cov-oatmeal:    #5A513D;
+  --cov-ink:        #D6D4CD;
+
+  --shadow-rest:  0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-hover: 0 16px 32px -8px rgba(0, 0, 0, 0.5),
+                  0 2px 6px rgba(0, 0, 0, 0.25);
+  --shadow-panel: 0 20px 40px -15px rgba(0, 0, 0, 0.5),
+                  0 1px 3px rgba(0, 0, 0, 0.2);
+}
