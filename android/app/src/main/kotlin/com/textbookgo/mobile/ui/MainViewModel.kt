@@ -98,6 +98,9 @@ class MainViewModel(
     val isDemo: Boolean = BuildConfig.DEBUG && BuildConfig.ALLOW_TEST_ENTRY
     val storagePath: String = container.booksDir.absolutePath
 
+    /** 阅读器进度，书架打开教材时传入。 */
+    val readerProgress = container.readerProgress
+
     init {
         viewModelScope.launch {
             container.auth.session.collect { session ->
@@ -413,6 +416,9 @@ class MainViewModel(
     fun deleteBook(book: ShelfBook) {
         viewModelScope.launch {
             val result = container.shelf.delete(book.id)
+            if (result == com.textbookgo.mobile.core.repository.DeleteResult.Deleted) {
+                container.readerProgress.clear(book.id)
+            }
             _ui.update {
                 it.copy(
                     message = when (result) {

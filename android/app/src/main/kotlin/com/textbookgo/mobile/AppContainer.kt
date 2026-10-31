@@ -9,6 +9,7 @@ import com.textbookgo.mobile.core.repository.PreferencesRepository
 import com.textbookgo.mobile.core.repository.ShelfRepository
 import com.textbookgo.mobile.data.download.DownloadRepositoryImpl
 import com.textbookgo.mobile.data.prefs.DataStorePreferencesRepository
+import com.textbookgo.mobile.data.reader.ReaderProgressStore
 import com.textbookgo.mobile.data.shelf.FileShelfRepository
 import com.textbookgo.mobile.data.store.ShelfStore
 import com.textbookgo.mobile.data.store.TaskStore
@@ -33,6 +34,9 @@ class AppContainer(context: Context) {
     val booksDir: File = File(appContext.filesDir, "books").apply { mkdirs() }
 
     val preferences: PreferencesRepository = DataStorePreferencesRepository(appContext)
+
+    /** 应用内阅读器的页码进度与夜读偏好。 */
+    val readerProgress: ReaderProgressStore = ReaderProgressStore(appContext)
 
     val shelf: ShelfRepository = FileShelfRepository(
         store = ShelfStore(File(appContext.filesDir, "shelf.json")),

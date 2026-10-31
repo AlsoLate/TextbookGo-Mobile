@@ -5,6 +5,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -63,6 +64,7 @@ fun ShelfScreen(
     books: List<ShelfBook>,
     tasks: List<DownloadTask>,
     storagePath: String,
+    onOpen: (ShelfBook) -> Unit,
     onDelete: (ShelfBook) -> Unit,
     onPause: (String) -> Unit,
     onResume: (String) -> Unit,
@@ -131,6 +133,7 @@ fun ShelfScreen(
             ) {
                 items(books, key = { it.id }) { book ->
                     Card(
+                        modifier = Modifier.clickable { onOpen(book) },
                         shape = RoundedCornerShape(18.dp),
                         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
                         border = BorderStroke(
@@ -188,6 +191,13 @@ fun ShelfScreen(
                                 ) {
                                     DropdownMenuItem(
                                         text = { Text("打开") },
+                                        onClick = {
+                                            menuFor = null
+                                            onOpen(book)
+                                        },
+                                    )
+                                    DropdownMenuItem(
+                                        text = { Text("用其他应用打开") },
                                         onClick = {
                                             menuFor = null
                                             PdfActions.open(context, File(storagePath, book.filename))

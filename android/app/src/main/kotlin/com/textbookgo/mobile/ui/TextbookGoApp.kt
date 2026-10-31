@@ -48,7 +48,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.textbookgo.mobile.ui.reader.PdfReaderScreen
 import com.textbookgo.mobile.ui.theme.LocalAccents
+import java.io.File
 
 /** 一级导航，对应旧版侧栏的三个入口。 */
 enum class AppDestination(val label: String) {
@@ -111,6 +113,24 @@ fun TextbookGoApp(vm: MainViewModel) {
 
     val accents = LocalAccents.current
     val uriHandler = LocalUriHandler.current
+
+    // 阅读器是独立的全屏路由：打开教材时暂时收起底部导航和一级标题栏。
+    var readerBookId by rememberSaveable { mutableStateOf<String?>(null) }
+    LaunchedEffect(readerBookId, shelf) {
+        val opened = readerBookId ?: return@LaunchedEffect
+        if (shelf.isNotEmpty() && shelf.none { it.id == opened }) readerBookId = null
+    }
+    val readingBook = readerBookId?.let { id -> shelf.firstOrNull { it.id == id } }
+    if (readingBook != null) {
+        PdfReaderScreen(
+            book = readingBook,
+            file = File(vm.storagePath, readingBook.filename),
+            progress = vm.readerProgress,
+            theme = preferences.theme,
+            onClose = { readerBookId = null },
+        )
+        return
+    }
 
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
@@ -213,6 +233,7 @@ fun TextbookGoApp(vm: MainViewModel) {
                     books = shelf,
                     tasks = tasks,
                     storagePath = vm.storagePath,
+                    onOpen = { readerBookId = it.id },
                     onDelete = vm::deleteBook,
                     onPause = vm::pause,
                     onResume = vm::resume,
