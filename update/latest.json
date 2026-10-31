@@ -1,0 +1,10 @@
+{
+  "versionCode": 1,
+  "versionName": "1.0.0",
+  "minSupportedVersionCode": 1,
+  "apkUrl": "https://github.com/AlsoLate/TextbookGo-Mobile/releases/download/v1.0.0/TextbookGo-Mobile-1.0.0.apk",
+  "sha256": "7c3b3e32edffa9de1c77992f5544f32b261257e5a11c149d04c33930c742189e",
+  "size": 8017149,
+  "publishedAt": "2026-10-31T18:15:00+08:00",
+  "changelog": "TextbookGo-Mobile 1.0.0 正式版：登录、目录筛选（记忆年级/学科/版本）、批量下载、书架、暗色模式、联系作者与应用内更新检查。"
+}
