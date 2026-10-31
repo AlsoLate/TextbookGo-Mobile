@@ -40,7 +40,7 @@ android/app/build/outputs/apk/release/app-release.apk
 当前版本：`1.1.0`（versionCode `4`，加入应用内阅读器），已用正式证书签名。当前 APK 的 SHA-256：
 
 ```text
-2dd259cab906d8799f4afd28b03c4696fbf4d6b906447ee22b710c3f4a5833a3
+f69fd13ba79f72d1a2263b72ad89075699798b6b5d3f281c87f1e240b6c31098
 ```
 
 Gitee 仓库：<https://gitee.com/yizhixixi/TextbookGo-Mobile>（线上 Release 仍为 v1.0.0；v1.1.0 待真机测试通过后再发布）
@@ -92,10 +92,10 @@ Gitee 的「发行版（Release）」附件是国内用户下载 APK 最省事�
   "versionName": "1.1.0",
   "minSupportedVersionCode": 3,
   "apkUrl": "https://gitee.com/yizhixixi/TextbookGo-Mobile/releases/download/v1.1.0/TextbookGo-Mobile-1.1.0.apk",
-  "sha256": "2dd259cab906d8799f4afd28b03c4696fbf4d6b906447ee22b710c3f4a5833a3",
+  "sha256": "f69fd13ba79f72d1a2263b72ad89075699798b6b5d3f281c87f1e240b6c31098",
   "size": 8066301,
-  "publishedAt": "2026-10-31T22:30:00+08:00",
-  "changelog": "1. 新增应用内 PDF 阅读器：书架直接打开、连续滚动、双指缩放、跳页\n2. 夜读模式与阅读进度记忆\n3. 书架菜单保留“用其他应用打开”"
+  "publishedAt": "2026-10-31T23:30:00+08:00",
+  "changelog": "新增应用内 PDF 浏览：书架直接打开、连续滚动、双指缩放、跳页与夜读"
 }
 ```
 

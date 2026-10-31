@@ -187,15 +187,11 @@ class PdfReaderTest {
     fun nightModeToggleUpdatesSubtitle() {
         composeRule.onNodeWithContentDescription("更多").performClick()
         composeRule.waitUntil(3_000) {
-            composeRule.onAllNodesWithText("开启夜读").fetchSemanticsNodes().isNotEmpty()
+            composeRule.onAllNodesWithText("夜读").fetchSemanticsNodes().isNotEmpty()
         }
-        composeRule.onNodeWithText("开启夜读").performClick()
+        composeRule.onNodeWithText("夜读").performClick()
         composeRule.waitUntil(3_000) {
             composeRule.onAllNodesWithText("夜读模式").fetchSemanticsNodes().isNotEmpty()
-        }
-        composeRule.onNodeWithContentDescription("更多").performClick()
-        composeRule.waitUntil(3_000) {
-            composeRule.onAllNodesWithText("关闭夜读").fetchSemanticsNodes().isNotEmpty()
         }
     }
 

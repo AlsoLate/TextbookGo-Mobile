@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -28,14 +29,15 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -46,6 +48,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -65,6 +68,7 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
@@ -72,6 +76,7 @@ import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.PointerInputChange
 import androidx.compose.ui.input.pointer.PointerInputScope
 import androidx.compose.ui.input.pointer.pointerInput
@@ -356,6 +361,8 @@ private fun ReaderReady(
             if (chromeVisible) {
                 ReaderTopBar(
                     title = CatalogRules.displayTitle(book.title),
+                    currentPage = currentPage,
+                    pageCount = pageCount,
                     nightMode = nightMode,
                     menuOpen = menuOpen,
                     onMenuOpenChange = { menuOpen = it },
@@ -557,6 +564,8 @@ private fun ReaderReady(
 @Composable
 private fun ReaderTopBar(
     title: String,
+    currentPage: Int,
+    pageCount: Int,
     nightMode: Boolean,
     menuOpen: Boolean,
     onMenuOpenChange: (Boolean) -> Unit,
@@ -614,27 +623,124 @@ private fun ReaderTopBar(
                 DropdownMenu(
                     expanded = menuOpen,
                     onDismissRequest = { onMenuOpenChange(false) },
+                    shape = RoundedCornerShape(20.dp),
+                    containerColor = MaterialTheme.colorScheme.surface,
+                    tonalElevation = 3.dp,
+                    shadowElevation = 10.dp,
                 ) {
-                    DropdownMenuItem(
-                        text = { Text("跳转到页面") },
-                        onClick = onJump,
-                    )
-                    DropdownMenuItem(
-                        text = { Text(if (nightMode) "关闭夜读" else "开启夜读") },
-                        onClick = onToggleNight,
-                    )
-                    HorizontalDivider()
-                    DropdownMenuItem(
-                        text = { Text("用其他应用打开") },
-                        onClick = onExternalOpen,
-                    )
-                    DropdownMenuItem(
-                        text = { Text("分享") },
-                        onClick = onShare,
-                    )
+                    Column(Modifier.width(280.dp)) {
+                        Column(
+                            Modifier.padding(horizontal = 20.dp, vertical = 12.dp),
+                        ) {
+                            Text(
+                                text = title,
+                                style = MaterialTheme.typography.titleSmall,
+                                fontWeight = FontWeight.SemiBold,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
+                            )
+                            Text(
+                                text = "第 ${currentPage + 1} / $pageCount 页",
+                                style = MaterialTheme.typography.labelSmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            )
+                        }
+                        HorizontalDivider(
+                            color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.6f),
+                        )
+                        ReaderMenuItem(
+                            icon = ReaderIcons.PageNumber,
+                            label = "跳转到页面",
+                            onClick = onJump,
+                        )
+                        ReaderMenuSwitchItem(
+                            icon = ReaderIcons.Moon,
+                            label = "夜读",
+                            checked = nightMode,
+                            onToggle = onToggleNight,
+                        )
+                        HorizontalDivider(
+                            color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.6f),
+                        )
+                        ReaderMenuItem(
+                            icon = Icons.Filled.ExitToApp,
+                            label = "用其他应用打开",
+                            onClick = onExternalOpen,
+                        )
+                        ReaderMenuItem(
+                            icon = Icons.Filled.Share,
+                            label = "分享",
+                            onClick = onShare,
+                        )
+                        Spacer(Modifier.height(6.dp))
+                    }
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun ReaderMenuItem(
+    icon: ImageVector,
+    label: String,
+    onClick: () -> Unit,
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick)
+            .padding(horizontal = 20.dp, vertical = 12.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Icon(
+            imageVector = icon,
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.size(20.dp),
+        )
+        Spacer(Modifier.width(14.dp))
+        Text(
+            text = label,
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurface,
+        )
+    }
+}
+
+@Composable
+private fun ReaderMenuSwitchItem(
+    icon: ImageVector,
+    label: String,
+    checked: Boolean,
+    onToggle: () -> Unit,
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onToggle)
+            .padding(start = 20.dp, end = 12.dp, top = 4.dp, bottom = 4.dp)
+            .heightIn(min = 44.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Icon(
+            imageVector = icon,
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.size(20.dp),
+        )
+        Spacer(Modifier.width(14.dp))
+        Text(
+            text = label,
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurface,
+            modifier = Modifier.weight(1f),
+        )
+        Switch(
+            checked = checked,
+            onCheckedChange = null,
+            modifier = Modifier.scale(0.82f),
+        )
     }
 }
 
