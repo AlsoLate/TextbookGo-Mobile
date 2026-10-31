@@ -23,7 +23,8 @@ android {
         applicationId = "com.textbookgo.mobile"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
-        versionCode = 1
+        // 对外版本号仍保持 1.0.0；versionCode 用 3 只是为了能覆盖手机上安装的测试包，不对外展示。
+        versionCode = 3
         versionName = "1.0.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -32,10 +33,10 @@ android {
             ?: "https://gitee.com/api/v5/repos/yizhixixi/TextbookGo-Mobile/contents/update/latest.json"
         buildConfigField("String", "UPDATE_MANIFEST_URL", "\"$updateManifestUrl\"")
 
-        // Gitee 不可用时回退到 GitHub 的同一份清单（contents API 同样返回 base64 包装）。
+        // Gitee 不可用时回退到 GitHub 的同一份清单（github.com raw 会跳转到 raw.githubusercontent.com）。
         val updateManifestFallbackUrl =
             (project.findProperty("textbookgo.updateManifestFallbackUrl") as? String)
-                ?: "https://api.github.com/repos/AlsoLate/TextbookGo-Mobile/contents/update/latest.json"
+                ?: "https://github.com/AlsoLate/TextbookGo-Mobile/raw/main/update/latest.json"
         buildConfigField("String", "UPDATE_MANIFEST_FALLBACK_URL", "\"$updateManifestFallbackUrl\"")
     }
 
