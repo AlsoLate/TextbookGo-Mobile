@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 自适应图标前景：108x108 画布上把书本图形按 54,54 居中，
+     含描边的外沿为 32..76 / 27..81，落在圆形与方圆遮罩的安全区内。 -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <path
+        android:fillColor="#A7B0A0"
+        android:pathData="M44,29h30v28h-30z" />
+    <path
+        android:fillColor="#E8E4D9"
+        android:pathData="M44,57h30v22h-30z" />
+    <path
+        android:fillColor="#D4C9B0"
+        android:pathData="M34,57h10v22h-10z" />
+    <path
+        android:fillColor="@android:color/transparent"
+        android:pathData="M34,29h40v50h-40z"
+        android:strokeColor="#1C1B1A"
+        android:strokeWidth="4" />
+    <path
+        android:fillColor="@android:color/transparent"
+        android:pathData="M44,29v50"
+        android:strokeColor="#1C1B1A"
+        android:strokeWidth="4" />
+</vector>

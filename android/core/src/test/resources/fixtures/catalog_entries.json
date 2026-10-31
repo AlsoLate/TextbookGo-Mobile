@@ -1,0 +1,26 @@
+[
+  {
+    "id": "book-math-7a",
+    "title": "数学 七年级上册",
+    "tag_list": [
+      { "tag_id": "g7", "tag_name": "七年级", "tag_dimension_id": "zxxnj" },
+      { "tag_id": "m", "tag_name": "数学", "tag_dimension_id": "zxxxk" },
+      { "tag_id": "v1", "tag_name": "人教版", "tag_dimension_id": "zxxbb" },
+      { "tag_id": "c1", "tag_name": "上册", "tag_dimension_id": "zxxcc" }
+    ],
+    "custom_properties": {
+      "thumbnails": ["https://c1.ykt.cbern.com.cn/cover/1.png"],
+      "preview": { "Slide1": "https://c1.ykt.cbern.com.cn/preview/1.png" },
+      "unknown_property": "ignored"
+    },
+    "upstream_extra": { "ignored": true }
+  },
+  {
+    "id": "book-chinese-8b",
+    "title": "语文 八年级下册",
+    "tag_list": [
+      { "tag_id": "g8", "tag_name": "八年级", "tag_dimension_id": "zxxnj" },
+      { "tag_id": "c", "tag_name": "语文", "tag_dimension_id": "zxxxk" }
+    ]
+  }
+]

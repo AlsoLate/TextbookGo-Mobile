@@ -1,0 +1,24 @@
+{
+  "id": "book-math-7a",
+  "title": "数学 七年级上册",
+  "ti_items": [
+    {
+      "ti_storage": "cs_path:${ref-path}/edu_product/esp/assets/book.pdf",
+      "ti_storages": [
+        "https://s-file-2.ykt.cbern.com.cn/edu_product/esp/assets/book.pdf"
+      ],
+      "ti_file_flag": "source",
+      "ti_is_source_file": true,
+      "ti_format": "pdf",
+      "ti_md5": "0123456789abcdef0123456789abcdef",
+      "ti_size": 104857600
+    },
+    {
+      "ti_storage": "cs_path:${ref-path}/edu_product/esp/assets/mapping.txt",
+      "ti_file_flag": "ebook_mapping",
+      "ti_format": "txt",
+      "ti_size": 2048
+    }
+  ],
+  "unknown_field": "ignored"
+}

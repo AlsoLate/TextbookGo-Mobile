@@ -1,0 +1,8 @@
+{
+  "module": "tch_material",
+  "module_version": 20261031001,
+  "urls": " https://s-file-1.ykt.cbern.com.cn/a.json , ,https://s-file-2.ykt.cbern.com.cn/b.json ",
+  "unknown_field": {
+    "nested": true
+  }
+}
