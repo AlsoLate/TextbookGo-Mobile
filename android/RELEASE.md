@@ -37,13 +37,16 @@
 android/app/build/outputs/apk/release/app-release.apk
 ```
 
-当前版本：`1.0.2`（versionCode `3`），已用正式证书签名。当前 APK 的 SHA-256：
+当前版本：`1.0.0`（对外版本；versionCode `3` 仅为覆盖测试包，后续按你确认再递增），已用正式证书签名。当前 APK 的 SHA-256：
 
 ```text
-ebf16efa5288638bf8b3802b3258ef36247143e5aa396dd1090d28fa1ebc7ebc
+21c8d39465eff0a4f6df63de879fb1811215276efc5bb0e886b23e76fdcd90ca
 ```
 
-Gitee 仓库：<https://gitee.com/yizhixixi/TextbookGo-Mobile>（Release v1.0.2 已上传）
+Gitee 仓库：<https://gitee.com/yizhixixi/TextbookGo-Mobile>（Release v1.0.0 已上传）
+
+GitHub 镜像（源码 + Release）：<https://github.com/AlsoLate/TextbookGo-Mobile>  
+更新检查会先请求 Gitee，失败后自动回退到 GitHub 的 `update/latest.json`。
 
 检查签名：
 
@@ -64,17 +67,17 @@ Gitee 的「发行版（Release）」附件是国内用户下载 APK 最省事�
 ### 3.2 发第一个正式版
 
 1. 进入仓库 → **发行版 / Releases** → **新建发行版**。
-2. 标签填 `v1.0.2`，标题填 `TextbookGo-Mobile 1.0.2`。
+2. 标签填 `v1.0.0`，标题填 `TextbookGo-Mobile 1.0.0`。
 3. 上传 `app-release.apk`，建议改名为：
 
    ```text
-   TextbookGo-Mobile-1.0.2.apk
+   TextbookGo-Mobile-1.0.0.apk
    ```
 
 4. 发布后，在附件上右键复制下载地址，形如：
 
    ```text
-   https://gitee.com/yizhixixi/TextbookGo-Mobile/releases/download/v1.0.2/TextbookGo-Mobile-1.0.2.apk
+   https://gitee.com/yizhixixi/TextbookGo-Mobile/releases/download/v1.0.0/TextbookGo-Mobile-1.0.0.apk
    ```
 
 5. **用手机浏览器（不登录 Gitee）打开这个地址**，确认能直接下载。
@@ -86,12 +89,12 @@ Gitee 的「发行版（Release）」附件是国内用户下载 APK 最省事�
 ```json
 {
   "versionCode": 3,
-  "versionName": "1.0.2",
-  "minSupportedVersionCode": 1,
-  "apkUrl": "https://gitee.com/yizhixixi/TextbookGo-Mobile/releases/download/v1.0.2/TextbookGo-Mobile-1.0.2.apk",
-  "sha256": "ebf16efa5288638bf8b3802b3258ef36247143e5aa396dd1090d28fa1ebc7ebc",
-  "size": 8000769,
-  "publishedAt": "2026-10-31T17:40:00+08:00",
+  "versionName": "1.0.0",
+  "minSupportedVersionCode": 3,
+  "apkUrl": "https://gitee.com/yizhixixi/TextbookGo-Mobile/releases/download/v1.0.0/TextbookGo-Mobile-1.0.0.apk",
+  "sha256": "21c8d39465eff0a4f6df63de879fb1811215276efc5bb0e886b23e76fdcd90ca",
+  "size": 8017149,
+  "publishedAt": "2026-10-31T18:20:00+08:00",
   "changelog": "1. 修复从书架切回下载页时筛选行位置重置\n2. 三行筛选横向滚动位置会保留"
 }
 ```
@@ -137,5 +140,6 @@ https://gitee.com/api/v5/repos/yizhixixi/TextbookGo-Mobile/contents/update/lates
 - 清单地址已写入 `BuildConfig.UPDATE_MANIFEST_URL`（`app/build.gradle.kts`）。
 
 当前 Gitee 仓库：<https://gitee.com/yizhixixi/TextbookGo-Mobile>
+
 
 
