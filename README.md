@@ -1,135 +1,92 @@
-<div align="center">
-  <img src="./logo.jpg" alt="TextbookGo logo" width="140" />
-  <h1>TextbookGo</h1>
-  <p><strong>国家智慧教育平台教材下载工具</strong></p>
-  <p>自动登录、交互选书、批量下载 PDF，用更轻量的方式把教材下载这件事做得省心一点。</p>
-  <p>
-    <a href="https://github.com/Wing900/TextbookGo/releases">下载 Releases</a> ·
-    <span>Windows / macOS / Linux</span> ·
-    <span>网页版开箱即用</span>
-  </p>
-</div>
+# TextbookGo-Mobile
 
-## 简介
+**TextbookGo 的 Android 原生移植** · Kotlin + Jetpack Compose · Android 8.0+
 
-`TextbookGo` 是一个面向普通用户的教材下载工具。运行后会自动打开浏览器完成登录，再按年级、学科、教材名逐步选择需要的教材，最后并发下载为 PDF。
+把国家智慧教育平台的教材下载体验搬到手机上：登录自己的账号，按年级 / 学科 / 版本选书，批量下载、断点续传，下载完成后进书架，支持打开、分享和导出。
 
-## 界面预览
+[下载 APK](https://github.com/AlsoLate/TextbookGo-Mobile/releases/latest) · [Gitee 镜像](https://gitee.com/yizhixixi/TextbookGo-Mobile) · [更新清单](update/latest.json)
 
-<div align="center">
-  <img src="./docs/ui-1.png" alt="TextbookGo 界面" width="860" />
-  <br/><br/>
-  <img src="./docs/ui-2.png" alt="TextbookGo 界面" width="860" />
-  <br/><br/>
-  <img src="./docs/ui-3.png" alt="TextbookGo 界面" width="860" />
-</div>
+## 截图
 
-## 特点
+![选书页](docs/android/images/ui-real-catalog.png)
 
-- **小白开箱即用** — 下载即用，自动打开浏览器登录，无需配环境变量、无需手动复制 Token
-- **内存极简** — 流式下载 + 32KB 固定缓冲区，不将 PDF 整体加载到内存，理论上可处理任意大小文件
-- **跨平台** — Windows 10/11 + Windows 7 SP1 兼容轨 / macOS / Linux 全支持
-- **断点续感知** — 已下载的教材自动跳过，不重复下载
-- **目录直达** — 书架页一键打开下载目录
-- **发布更瘦** — 构建默认精简符号与路径信息，分发体积更小
+*年级 / 学科 / 版本三级筛选，2022 年修订版自动置顶并加标签*
 
-## 教程
+![关于页](docs/android/images/ui-about.png)
 
-### 1. 下载
+*关于页：作者、原作者 MIT 归属、仓库入口与检查更新*
 
-从 [Releases](https://github.com/Wing900/TextbookGo/releases) 下载对应系统的可执行文件或压缩包。
+![联系作者](docs/android/images/ui-contact.png)
 
-| 文件 | 平台 |
-|------|------|
-| `TextbookGo-windows-amd64.exe` | Windows 10/11 64位 |
-| `TextbookGo-windows7-amd64.exe` | Windows 7 SP1 / 8.x 64位（兼容轨） |
-| `TextbookGo-darwin-amd64` | macOS Intel |
-| `TextbookGo-darwin-arm64` | macOS Apple Silicon |
-| `TextbookGo-linux-amd64` | Linux 64位 |
+*微信 / QQ 一键复制*
 
-### 2. 运行
+## 功能
 
-直接双击运行，浏览器会自动打开界面（默认 http://127.0.0.1:8790，端口被占自动顺延至 8800）：
+- **登录**：应用内 WebView 打开平台登录页，读取登录凭据；支持记住登录、401/403 自动标记过期
+- **选书**：年级 / 学科 / 版本三级筛选，每个年级记住上次的学科和版本；书名去掉“义务教育教科书”前缀，2022 年修订版以标签置顶
+- **目录**：真实分片并发加载，本地缓存 12 小时，断网也能浏览已缓存目录
+- **下载**：全局 3 并发、流式写入、主备链接回退、暂停 / 继续 / 重试 / 取消、大小与 MD5 校验
+- **断点续传**：Range 续传，200 自动重下，416 完成判断
+- **书架**：平台封面、PDF 首页缩略图兜底、大小 / 日期、打开、分享、导出（SAF）、删除确认
+- **任务**：下载任务直接展示在书架顶部，完成后自动收起
+- **外观**：跟随系统 / 浅色 / 深色三档，晨光与暗色两套完整配色
+- **更新**：启动时检查新版本，24 小时节流；设置页可手动检查，支持跳过版本与强制更新
+
+## 下载安装
+
+- 系统要求：**Android 8.0（API 26）及以上**
+- 安装包：到 [Releases](https://github.com/AlsoLate/TextbookGo-Mobile/releases/latest) 下载 `TextbookGo-Mobile-1.0.0.apk`
+- 首次安装需在系统设置里允许浏览器 / 文件管理器“安装未知应用”
+- 后续版本使用同一签名，可直接覆盖安装，书架与登录状态保留
+
+> 国内网络建议优先从 [Gitee](https://gitee.com/yizhixixi/TextbookGo-Mobile/releases) 下载，GitHub 作为备用。
+
+## 从源码构建
+
+环境：JDK 21、Android SDK（compileSdk 36）、Gradle Wrapper 自带。
 
 ```bash
-# 下载到程序所在目录下的 books/
-TextbookGo.exe
-
-# 或指定输出目录
-TextbookGo.exe -out D:\我的教材
+cd android
+./gradlew :app:assembleDebug        # 示例数据，开发调试
+./gradlew :app:assembleVerify       # 真实平台 + 调试签名，真机验收
+./gradlew :app:assembleRelease      # 正式包
 ```
 
-### 3. 登录
+- `release` 需要 `android/keystore.properties` 指向签名证书；没有该文件时构建为未签名包
+- `keystore.properties` 与 `keystore/` 已在 `.gitignore` 中，不会进入仓库
+- 发布签名必须长期保存，换签名会导致老用户无法覆盖升级
 
-点击「登录并预检目录」→ 程序打开 Chrome 浏览器 → 在国家智慧教育平台登录您的账号 → 登录成功后自动获取 Token，无需手动操作。
+## 项目结构
 
-### 4. 选书与下载
-
-选年级 → 学科 → 教材（支持多选），点「开始下载」自动切到书架，悬浮面板实时显示每本进度，下载完成一本书架即多一本。书架页可一键打开下载目录。
-
-### 5. 书签（可选）
-
-如需自动生成 PDF 书签（目录），安装 [pdfcpu](https://github.com/pdfcpu/pdfcpu) 后放在 `PATH` 即可：
-
-```bash
-go install github.com/pdfcpu/pdfcpu/cmd/pdfcpu@latest
+```text
+android/
+  core/       纯 Kotlin 领域层：目录规则、筛选/选择集、下载状态机、
+              断点续传、更新策略、URL 白名单等（独立 JVM 测试）
+  testing/    共享内存假实现，供 UI 测试与预览使用
+  app/        Compose 客户端、数据层、前台下载服务、更新检查
+    src/debug/    示例数据（正式包不包含）
+    src/verify/   真实平台 + 调试签名，用于真机验收
+    src/release/  正式发布
+docs/android/ 需求、技术设计、实施计划、真机验收与更新机制文档
 ```
 
-## 开发打包
+## 更新机制
 
-Windows 分发包会使用仓库根目录的 `logo.jpg` 自动生成程序图标，并将图标嵌入 `TextbookGo.exe`：
+App 读取 Gitee 仓库里的 `update/latest.json`（contents API，避免 raw 缓存），失败时自动回退到本仓库的同一份清单。清单包含 `versionCode`、`versionName`、APK 地址、SHA-256 和更新说明，客户端只做提示与跳转下载，不静默安装。
 
-```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\build-windows.ps1
-```
+## 许可与致谢
 
-也可以直接执行：
+- 上游项目：[Wing900/TextbookGo](https://github.com/Wing900/TextbookGo)，MIT License，Copyright (c) 2026 Wing900
+- Android 移植：Yizhixx
+- 本项目同样以 MIT License 发布，完整许可证见 [LICENSE](LICENSE)；App 内“关于 → MIT 许可”也可查看
 
-```bash
-make package-windows
-```
+## 联系作者
 
-产物输出到 `dist/`：
+- 微信：`c29638469`
+- QQ：`3523959266`
 
-- `dist/TextbookGo-windows-amd64/TextbookGo.exe`
-- `dist/TextbookGo-windows-amd64.zip`
-
-如需一次性生成 Windows / macOS / Linux 的分发包：
-
-```bash
-make package-all
-```
-
-说明：
-
-- `bin/` 保存最新构建出来的各平台二进制
-- `dist/` 保存可直接分发的打包产物
-- Windows 的 `bin/TextbookGo-windows-amd64.exe` 会同步为带 logo 的打包版本
-
-## 网页版「下书」
-
-立体主义网页界面（前端 + JSON API + SSE 下载进度），作为唯一入口。
-
-```bash
-mise run serve          # 若已安装 mise
-go run ./cmd/boooookdown-web          # 直接运行（默认 127.0.0.1:8790）
-go run ./cmd/boooookdown-web -addr 127.0.0.1:9000 -out ./books
-```
-
-浏览器打开打印的地址即可使用。前端只通过 `/api/*` 与后端通信，静态资源由 Go 二进制 `go:embed` 内嵌，单文件分发。
-
-## Android 客户端
-
-已确认将 TextbookGo 重写为符合 Android 操作习惯的 Kotlin + Jetpack Compose 原生 App，目标工程名称为 **TextbookGo-Mobile**，支持 Android 8.0/API 26 及以上。首版手机优先、不内置 PDF 阅读器，采用 App 内保存＋按需导出，支持后台下载、暂停/恢复及满足服务器条件时的可靠断点续传；先以 APK 内测，PDF 目录书签为可选增强。
-
-详见 [TextbookGo-Mobile 安卓重写开发文档](<docs/android/README.md>)（v0.3），包含代码审计、已确认需求与交互、技术设计、实施计划、验收测试与[真机验收指南](<docs/android/05-真机验收指南.md>)。
-
-**当前进度**：`android/` 已完成客户端功能闭环与真实平台接入——应用内网页登录（含手工 token 兜底）、真实目录加载与缓存、年级/学科/版本三色筛选、批量下载与暂停恢复/断点续传、主备链接、前台服务与进度通知、书架封面与 PDF 首页缩略图、分享/导出/删除、双主题；**191 个 JVM 测试（1 个网络探针默认跳过）与 3 个 API 36 设备级测试全部通过，Lint 无问题，Debug/verify/Release 均可构建**。已在模拟器验证真实目录（3565 本）与登录页；**真实账号登录后的完整下载需按验收指南用你自己的账号执行**。见 [android/README.md](<android/README.md>) 与 [交付状态](<android/STATUS.md>)。
+添加好友请备注“TextbookGo”。
 
 ## 免责声明
 
-本项目仅供个人学习与教学研究使用。所下载教材的版权归属国家智慧教育公共服务平台及相关出版社，请勿用于商业用途或再分发。使用本项目即表示同意遵守平台相关服务条款。
-
-## 许可
-
-[MIT](./LICENSE) © 2026 Wing900
+本项目仅供个人学习与教学研究使用。教材版权归国家智慧教育公共服务平台及相关出版社所有，请勿用于商业用途或再分发；使用本项目即表示同意遵守平台相关服务条款。
