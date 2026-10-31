@@ -190,8 +190,7 @@ fun SettingsScreen(
 
         SettingsCard(title = "关于", accent = accents.version) {
             Text(
-                text = "TextbookGo-Mobile ${com.textbookgo.mobile.BuildConfig.VERSION_NAME} · " +
-                    com.textbookgo.mobile.BuildConfig.BUILD_TYPE,
+                text = "TextbookGo-Mobile ${com.textbookgo.mobile.BuildConfig.VERSION_NAME}",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )

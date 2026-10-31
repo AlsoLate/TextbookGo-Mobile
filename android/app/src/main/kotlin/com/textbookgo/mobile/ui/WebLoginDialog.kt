@@ -74,6 +74,8 @@ fun WebLoginDialog(
     var status by rememberSaveable { mutableStateOf("正在打开平台登录页…") }
     var detected by rememberSaveable { mutableStateOf(false) }
     val clipboard = LocalClipboardManager.current
+    // 正式包关闭“手动输入 Token”；debug/verify 仍保留用于排障。
+    val allowTestEntry = com.textbookgo.mobile.BuildConfig.ALLOW_TEST_ENTRY
 
     val webView = remember {
         WebView(context).apply {
@@ -147,7 +149,11 @@ fun WebLoginDialog(
                 break
             }
             if (System.currentTimeMillis() - startedAt > TIMEOUT_MS) {
-                status = "等待登录超时，可重试或改用手动输入 Token"
+                status = if (allowTestEntry) {
+                    "等待登录超时，可重试或改用手动输入 Token"
+                } else {
+                    "等待登录超时，请重试"
+                }
                 break
             }
         }
@@ -178,25 +184,27 @@ fun WebLoginDialog(
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                     )
-                    TextButton(
-                        onClick = {
-                            manual = !manual
-                            status = if (manual) {
-                                "粘贴桌面端 token.json 中的 token"
-                            } else {
-                                "正在打开平台登录页…"
-                            }
-                        },
-                        modifier = Modifier.testTag("toggle_manual_token"),
-                    ) {
-                        Text(if (manual) "网页登录" else "手动输入")
+                    if (allowTestEntry) {
+                        TextButton(
+                            onClick = {
+                                manual = !manual
+                                status = if (manual) {
+                                    "粘贴桌面端 token.json 中的 token"
+                                } else {
+                                    "正在打开平台登录页…"
+                                }
+                            },
+                            modifier = Modifier.testTag("toggle_manual_token"),
+                        ) {
+                            Text(if (manual) "网页登录" else "手动输入")
+                        }
                     }
                     TextButton(onClick = onDismiss, modifier = Modifier.testTag("close_login")) {
                         Text("关闭")
                     }
                 }
 
-                if (manual) {
+                if (manual && allowTestEntry) {
                     ManualTokenPanel(
                         tokenInput = tokenInput,
                         onTokenChange = { tokenInput = it },

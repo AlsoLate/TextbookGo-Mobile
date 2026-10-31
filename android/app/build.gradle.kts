@@ -27,6 +27,8 @@ android {
         versionCode = 3
         versionName = "1.0.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        // 默认关闭：只有 debug/verify 显式打开，正式包不出现测试入口。
+        buildConfigField("boolean", "ALLOW_TEST_ENTRY", "false")
 
         // 用 Gitee contents API 而不是 raw：raw 有 CDN 缓存，发版后几分钟内可能读到旧清单。
         val updateManifestUrl = (project.findProperty("textbookgo.updateManifestUrl") as? String)
@@ -52,8 +54,13 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField("boolean", "ALLOW_TEST_ENTRY", "true")
+        }
         release {
             isMinifyEnabled = false
+            // 正式包不提供手动 token / 示例模式。
+            buildConfigField("boolean", "ALLOW_TEST_ENTRY", "false")
             // 没有 keystore.properties 时保持未签名，方便在没有密钥的机器上只做编译。
             signingConfig = signingConfigs.findByName("release")
             proguardFiles(
@@ -68,6 +75,7 @@ android {
         create("verify") {
             initWith(getByName("release"))
             signingConfig = signingConfigs.getByName("debug")
+            buildConfigField("boolean", "ALLOW_TEST_ENTRY", "true")
             matchingFallbacks += listOf("release")
             applicationIdSuffix = ".verify"
             versionNameSuffix = "-verify"

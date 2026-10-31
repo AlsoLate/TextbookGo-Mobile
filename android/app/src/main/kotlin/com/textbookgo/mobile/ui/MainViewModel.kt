@@ -95,7 +95,7 @@ class MainViewModel(
     private val subjectMemory = mutableMapOf<String, String>()
     private val versionMemory = mutableMapOf<String, String>()
 
-    val isDemo: Boolean = BuildConfig.DEBUG
+    val isDemo: Boolean = BuildConfig.DEBUG && BuildConfig.ALLOW_TEST_ENTRY
     val storagePath: String = container.booksDir.absolutePath
 
     init {

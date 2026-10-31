@@ -3,8 +3,8 @@
   "versionName": "1.0.0",
   "minSupportedVersionCode": 3,
   "apkUrl": "https://github.com/AlsoLate/TextbookGo-Mobile/releases/download/v1.0.0/TextbookGo-Mobile-1.0.0.apk",
-  "sha256": "21c8d39465eff0a4f6df63de879fb1811215276efc5bb0e886b23e76fdcd90ca",
+  "sha256": "593a2b0c384652b835f9080947beefaea33454fa47458f24ee50e9ffff33fadb",
   "size": 8017149,
-  "publishedAt": "2026-10-31T18:20:00+08:00",
+  "publishedAt": "2026-10-31T18:25:00+08:00",
   "changelog": "TextbookGo-Mobile 1.0.0：登录、目录筛选（记忆年级/学科/版本）、批量下载、书架、暗色模式、联系作者、Gitee/GitHub 仓库入口与应用内更新检查。"
 }
