@@ -44,7 +44,7 @@
 ## 下载安装
 
 - 系统要求：**Android 8.0（API 26）及以上**
-- 安装包：到 [Releases](https://github.com/AlsoLate/TextbookGo-Mobile/releases/latest) 下载 `TextbookGo-Mobile-1.0.0.apk`
+- 安装包：到 [Releases](https://github.com/AlsoLate/TextbookGo-Mobile/releases/latest) 下载 `TextbookGo-Mobile-1.1.0.apk`
 - 首次安装需在系统设置里允许浏览器 / 文件管理器“安装未知应用”
 - 后续版本使用同一签名，可直接覆盖安装，书架与登录状态保留
 

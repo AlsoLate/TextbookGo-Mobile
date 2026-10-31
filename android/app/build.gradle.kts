@@ -23,9 +23,9 @@ android {
         applicationId = "com.textbookgo.mobile"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
-        // 对外版本号仍保持 1.0.0；versionCode 用 3 只是为了能覆盖手机上安装的测试包，不对外展示。
-        versionCode = 3
-        versionName = "1.0.0"
+        // 1.1.0 加入应用内阅读器；versionCode 递增，保证能覆盖 1.0.0（build 3）。
+        versionCode = 4
+        versionName = "1.1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         // 默认关闭：只有 debug/verify 显式打开，正式包不出现测试入口。
         buildConfigField("boolean", "ALLOW_TEST_ENTRY", "false")

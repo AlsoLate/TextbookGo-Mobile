@@ -37,13 +37,13 @@
 android/app/build/outputs/apk/release/app-release.apk
 ```
 
-当前版本：`1.0.0`（对外版本；versionCode `3` 仅为覆盖测试包，后续按你确认再递增），已用正式证书签名。当前 APK 的 SHA-256：
+当前版本：`1.1.0`（versionCode `4`，加入应用内阅读器），已用正式证书签名。当前 APK 的 SHA-256：
 
 ```text
-21c8d39465eff0a4f6df63de879fb1811215276efc5bb0e886b23e76fdcd90ca
+2dd259cab906d8799f4afd28b03c4696fbf4d6b906447ee22b710c3f4a5833a3
 ```
 
-Gitee 仓库：<https://gitee.com/yizhixixi/TextbookGo-Mobile>（Release v1.0.0 已上传）
+Gitee 仓库：<https://gitee.com/yizhixixi/TextbookGo-Mobile>（线上 Release 仍为 v1.0.0；v1.1.0 待真机测试通过后再发布）
 
 GitHub 镜像（源码 + Release）：<https://github.com/AlsoLate/TextbookGo-Mobile>  
 更新检查会先请求 Gitee，失败后自动回退到 GitHub 的 `update/latest.json`。
@@ -67,17 +67,17 @@ Gitee 的「发行版（Release）」附件是国内用户下载 APK 最省事�
 ### 3.2 发第一个正式版
 
 1. 进入仓库 → **发行版 / Releases** → **新建发行版**。
-2. 标签填 `v1.0.0`，标题填 `TextbookGo-Mobile 1.0.0`。
+2. 标签填 `v1.1.0`，标题填 `TextbookGo-Mobile 1.1.0`。
 3. 上传 `app-release.apk`，建议改名为：
 
    ```text
-   TextbookGo-Mobile-1.0.0.apk
+   TextbookGo-Mobile-1.1.0.apk
    ```
 
 4. 发布后，在附件上右键复制下载地址，形如：
 
    ```text
-   https://gitee.com/yizhixixi/TextbookGo-Mobile/releases/download/v1.0.0/TextbookGo-Mobile-1.0.0.apk
+   https://gitee.com/yizhixixi/TextbookGo-Mobile/releases/download/v1.1.0/TextbookGo-Mobile-1.1.0.apk
    ```
 
 5. **用手机浏览器（不登录 Gitee）打开这个地址**，确认能直接下载。
@@ -88,14 +88,14 @@ Gitee 的「发行版（Release）」附件是国内用户下载 APK 最省事�
 
 ```json
 {
-  "versionCode": 3,
-  "versionName": "1.0.0",
+  "versionCode": 4,
+  "versionName": "1.1.0",
   "minSupportedVersionCode": 3,
-  "apkUrl": "https://gitee.com/yizhixixi/TextbookGo-Mobile/releases/download/v1.0.0/TextbookGo-Mobile-1.0.0.apk",
-  "sha256": "21c8d39465eff0a4f6df63de879fb1811215276efc5bb0e886b23e76fdcd90ca",
-  "size": 8017149,
-  "publishedAt": "2026-10-31T18:20:00+08:00",
-  "changelog": "1. 修复从书架切回下载页时筛选行位置重置\n2. 三行筛选横向滚动位置会保留"
+  "apkUrl": "https://gitee.com/yizhixixi/TextbookGo-Mobile/releases/download/v1.1.0/TextbookGo-Mobile-1.1.0.apk",
+  "sha256": "2dd259cab906d8799f4afd28b03c4696fbf4d6b906447ee22b710c3f4a5833a3",
+  "size": 8066301,
+  "publishedAt": "2026-10-31T22:30:00+08:00",
+  "changelog": "1. 新增应用内 PDF 阅读器：书架直接打开、连续滚动、双指缩放、跳页\n2. 夜读模式与阅读进度记忆\n3. 书架菜单保留“用其他应用打开”"
 }
 ```
 
